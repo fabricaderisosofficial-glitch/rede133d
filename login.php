@@ -1,89 +1,127 @@
-
-
 <?php
 include "config.php";
 session_start();
 
-if(isset( $_SESSION["username"] ))
-{
-    header('Location: main.php');
-}
-if(isset($_GET['id'])=="356a192b7913b04c54574d18c28d46e6395428ab")
-{
-
-    echo '<script>alert("Successfully Registered")</script>';
-
+if(isset($_SESSION["username"])) {
+    header('Location: home.php');
 }
 
+if(isset($_GET['msg'])) {
+    $msg = $_GET['msg'];
+    if($msg == 'invalid') echo '<script>alert("Usuário ou senha incorretos")</script>';
+}
 ?>
-        
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login - RedeM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
-        form,body{
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
         }
-        body{
-            height: 100vh;
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 90%;
+            padding: 40px;
         }
-        form{
-            height: 650px;
-            width: 400px;
-            border: 1px solid gainsboro;
-            border-radius: 10px;
-            
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        input,button{
-            height: 35px;
-            width: 300px;
-            border: none;
-            border-radius: 5px;
-            background-color: rgb(240, 240, 240);
-            padding-left: 15px;
+        .header h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 5px;
         }
-        button{
-            background-color: #5097e7;
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Nunito', sans-serif;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-weight: bold;
-            margin-top: 60px;
-            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
         }
-        form a{
-            color: #5097e7;
-            text-decoration : none;
-            font-size : 13px;
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+            font-size: 14px;
         }
-        
-        @media screen and (max-width:500px) {
-            form{
-                border: none;
-            }
+        .form-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <form   action="enter-login.php" method="post">
-        <p>
-        <img src="images/blogo.png" alt="" height="55">
-        </p><br><br><br> 
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="passwd" placeholder="Password" required><br>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 RedeM</h1>
+        </div>
 
-        <button type="submit" value="login">Login</button>
-        <a href="index.php">Sign up</a>
-    </form>
+        <form action="auth_login.php" method="POST">
+            <div class="form-group">
+                <label>Usuário ou Email</label>
+                <input type="text" name="username" placeholder="seu usuário" required>
+            </div>
 
-    
- 
-    
+            <div class="form-group">
+                <label>Senha</label>
+                <input type="password" name="password" placeholder="sua senha" required>
+            </div>
 
+            <button type="submit">Entrar</button>
+        </form>
 
+        <div class="form-footer">
+            Não tem conta? <a href="index.php">Cadastre-se</a>
+        </div>
+    </div>
 </body>
 </html>
